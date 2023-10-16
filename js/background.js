@@ -14,7 +14,7 @@ chrome.contextMenus.create({
 chrome.runtime.onInstalled.addListener(() => {
     // Page actions are disabled by default and enabled on select tabs
     chrome.action.disable();
-  
+  /*
     // Clear all rules to ensure only our expected rules are set
     chrome.declarativeContent.onPageChanged.removeRules(undefined, () => {
       // Declare a rule to enable the action on example.com pages
@@ -31,4 +31,25 @@ chrome.runtime.onInstalled.addListener(() => {
       let rules = [exampleRule];
       chrome.declarativeContent.onPageChanged.addRules(rules);
     });
+    */
+  });
+  chrome.tabs.onActivated.addListener(() => {
+    console.info("onActivated---");
+  //  chrome.action.disable();
+  });
+  chrome.webNavigation.onCompleted.addListener(()=>{
+    console.info("webNavigation.onCompleted---");
+  //  chrome.action.disable();
+  });
+  chrome.tabs.query({ active: true, currentWindow: true }, (e) => {
+    console.info("webNavigation.onCompleted---");
+  //  chrome.action.disable();
+    const url = e[0].url;
+    console.log(url);
+  });
+  chrome.tabs.onActivated.addListener(() =>{
+    console.info("tabs.onActivated---");
+    chrome.action.disable();
+//    const url = e[0].url;
+  //  console.log(url);
   });
